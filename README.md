@@ -1,8 +1,8 @@
 # ⚔️ Dungeon Chronicles: Realm of Shadows
 
-A complete, decoupled, server-authoritative web-based RPG built with **Python 3 (FastAPI + SQLAlchemy + SQLite)** and **Vanilla ES6 Web Frontend (HTML5 + Dark Fantasy CSS + Web Audio)**.
+A complete, decoupled, server-authoritative web-based RPG built with **Python 3 (FastAPI + SQLAlchemy + PostgreSQL)** and **Vanilla ES6 Web Frontend (HTML5 + Dark Fantasy CSS + Web Audio)**.
 
-Engineered specifically for local development and zero-Docker PaaS cloud deployment via the **`usectl` CLI**.
+Engineered specifically for local development and cloud deployment via the **`usectl` CLI**.
 
 ---
 
@@ -15,8 +15,9 @@ rpg-game/
 ├── backend/
 │   ├── app.py              # FastAPI server, REST API, authoritative combat engine
 │   ├── models.py           # SQLAlchemy database schemas (Character, Item, ActiveBattle)
-│   ├── database.py         # SQLite engine, session generator, startup init
-│   ├── requirements.txt    # Python dependencies (fastapi, uvicorn, sqlalchemy, pydantic)
+│   ├── database.py         # PostgreSQL engine (DATABASE_URL), connection pool, session generator
+│   ├── requirements.txt    # Python dependencies (fastapi, uvicorn, sqlalchemy, pydantic, psycopg2-binary)
+│   ├── Dockerfile          # Container image build for usectl Kaniko builder
 │   ├── Procfile            # PaaS command: web: uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}
 │   ├── run.sh              # Local CLI runner with virtual environment setup
 │   └── verify_backend.py   # Automated test suite for game mechanics and API endpoints

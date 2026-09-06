@@ -9,10 +9,15 @@ from sqlalchemy.orm import Session
 from database import engine, get_db, Base
 import models
 
-# Create database tables automatically on startup
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="RPG Game Backend", version="1.0.0")
+
+@app.on_event("startup")
+def on_startup():
+    try:
+        models.Base.metadata.create_all(bind=engine)
+        print("✔ PostgreSQL database tables initialized successfully.")
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize database tables on startup: {e}")
 
 # CORS middleware for cross-origin frontend communication
 app.add_middleware(
